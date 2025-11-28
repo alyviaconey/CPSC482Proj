@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exercise Dashboard</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@observablehq/inspector@5/dist/inspector.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: linear-gradient(rgba(24,25,26,0.9), rgba(24,25,26,0.9)), url('untitled.jpg') center/cover no-repeat fixed;
+      padding: 10px;
+      color: #e4e6eb;
+    }
+    h1 { text-align: center; margin-bottom: 10px; font-size: 22px; }
+    .container { max-width: 100vw; }
+    
+    /* Top filters bar */
+    .filters-bar { 
+      display: grid; 
+      grid-template-columns: repeat(4, 1fr); 
+      gap: 10px; 
+      background: #242526; 
+      padding: 10px; 
+      border-radius: 8px; 
+      margin-bottom: 10px;
+      font-size: 12px;
+    }
+    .filter-section h3 { font-size: 12px; margin-bottom: 5px; color: #4CAF50; font-weight: 600; }
+    input[type="range"] {
+      background: #242526 !important;
+    }
+    input[type="number"] {
+      background: #242526 !important;
+      color: #e4e6eb !important;
+      border: 1px solid #4CAF50 !important;
+    }
+    
+    /* Main content */
+    .main-content { display: flex; flex-direction: column; gap: 8px; }
+    
+    .legend-row { display: flex; justify-content: center; margin-bottom: 8px; }
+    
+    .charts { 
+      display: grid; 
+      grid-template-columns: repeat(2, 1fr); 
+      justify-items: center;
+      gap: 8px;
+    }
+    .chart { min-height: 350px; margin-bottom: 8px; }
+    .chart.bottom { grid-column: 1 / -1; min-height: 450px; }
+    p { display: none; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Exercise Dashboard</h1>
+    
+    <!-- Horizontal Filters -->
+    <div class="filters-bar">
+      <div class="filter-section">
+        <h3>Team Members</h3>
+        <div id="observablehq-viewof-selectedMembers"></div>
+      </div>
+      <div class="filter-section">
+        <h3>Min Duration</h3>
+        <div id="observablehq-viewof-minDuration"></div>
+      </div>
+      <div class="filter-section">
+        <h3>Time of Day</h3>
+        <div id="observablehq-viewof-selectedTimeOfDay"></div>
+      </div>
+      <div class="filter-section">
+        <h3>Muscle Groups</h3>
+        <div id="observablehq-viewof-selectedMuscles"></div>
+      </div>
+    </div>
+    
+    <!-- Charts -->
+    <div class="main-content">
+      <div class="legend-row" id="observablehq-legend"></div>
+      
+      <div class="charts">
+        <div class="chart" id="observablehq-chart1"></div>
+        <div class="chart" id="observablehq-chart2"></div>
+        <div class="chart" id="observablehq-chart3"></div>
+        <div class="chart" id="observablehq-chart4"></div>
+        <div class="chart bottom" id="observablehq-chart5"></div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@5/dist/runtime.js";
+    import define from "https://api.observablehq.com/@school111/cpsc-482-final-project.js?v=4";
+    new Runtime().module(define, name => {
+      if (name === "legend") return new Inspector(document.querySelector("#observablehq-legend"));
+      if (name === "viewof selectedMembers") return new Inspector(document.querySelector("#observablehq-viewof-selectedMembers"));
+      if (name === "viewof minDuration") return new Inspector(document.querySelector("#observablehq-viewof-minDuration"));
+      if (name === "viewof selectedTimeOfDay") return new Inspector(document.querySelector("#observablehq-viewof-selectedTimeOfDay"));
+      if (name === "viewof selectedMuscles") return new Inspector(document.querySelector("#observablehq-viewof-selectedMuscles"));
+      if (name === "chart1") return new Inspector(document.querySelector("#observablehq-chart1"));
+      if (name === "chart2") return new Inspector(document.querySelector("#observablehq-chart2"));
+      if (name === "chart3") return new Inspector(document.querySelector("#observablehq-chart3"));
+      if (name === "chart4") return new Inspector(document.querySelector("#observablehq-chart4"));
+      if (name === "chart5") return new Inspector(document.querySelector("#observablehq-chart5"));
+    });
+  </script>
+</body>
+</html>
